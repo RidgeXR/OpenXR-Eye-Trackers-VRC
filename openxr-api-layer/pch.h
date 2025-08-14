@@ -59,6 +59,7 @@ using namespace std::chrono_literals;
 #include <wil/resource.h>
 #include <traceloggingactivity.h>
 #include <traceloggingprovider.h>
+#include <WinSock2.h>
 
 using Microsoft::WRL::ComPtr;
 

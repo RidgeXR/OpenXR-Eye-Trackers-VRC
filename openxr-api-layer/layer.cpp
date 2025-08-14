@@ -189,6 +189,8 @@ namespace openxr_api_layer {
                             if (!m_tracker) {
                                 m_tracker = createSteamLinkEyeTracker();
                             }
+                        } else if (systemName.find("SteamVR/OpenXR : playstation_vr2") != std::string::npos) {
+                            m_tracker = createPsvr2ToolkitEyeTracker();
                         } else if (systemName.find("SteamVR/OpenXR") != std::string::npos) {
                             m_tracker = createVarjoEyeTracker();
                         }
