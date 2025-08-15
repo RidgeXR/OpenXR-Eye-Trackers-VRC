@@ -176,7 +176,7 @@ namespace openxr_api_layer {
                 } response{};
 #pragma pack(pop)
 
-                unsigned int retries = 3;
+                unsigned int retries = 5;
                 char* buffer = (char*)&response;
                 int offset = 0;
                 while (retries) {
@@ -188,7 +188,7 @@ namespace openxr_api_layer {
                         break;
                     }
 
-                    Sleep(5);
+                    Sleep(1);
                     retries--;
                 }
 
@@ -211,6 +211,9 @@ namespace openxr_api_layer {
                         m_lastReceivedTime = now;
                     }
                 }
+
+                // This logic is a little janky until there is a proper IPC mechanism.
+                Sleep(5 - (5 - retries));
             }
 
             TraceLoggingWriteStop(local, "Psvr2ToolkitEyeTracker_IpcThread");
