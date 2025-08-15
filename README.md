@@ -1,6 +1,6 @@
 # OpenXR Eye Trackers
 
-This software enables the use of eye trackers with OpenXR on HP Reverb G2 Omnicept, Meta Quest Pro, Varjo Aero and Pimax Crystal, via the [`XR_EXT_eye_gaze_interaction`](https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_EXT_eye_gaze_interaction) extension.
+This software enables the use of eye trackers with OpenXR on HP Reverb G2 Omnicept, Meta Quest Pro, PlayStation VR2 Varjo Aero and Pimax Crystal, via the [`XR_EXT_eye_gaze_interaction`](https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#XR_EXT_eye_gaze_interaction) extension.
 
 DISCLAIMER: This software is distributed as-is, without any warranties or conditions of any kind. Use at your own risks.
 
@@ -16,7 +16,7 @@ For troubleshooting, the log file can be found at `%LocalAppData%\OpenXR-Eye-Tra
 
 ## Developers
 
-To learn how to use the API layer in your application, and ship with eye tracking support that will work on HP Reverb G2 Omnicept, Varjo Aero, Meta Quest Pro, Pimax Crystal and Vive Pro Eye, check out the [Developers](https://github.com/mbucchia/OpenXR-Eye-Trackers/wiki/Developers) wiki!
+To learn how to use the API layer in your application, and ship with eye tracking support that will work on HP Reverb G2 Omnicept, PlayStation VR2, Varjo Aero, Meta Quest Pro, Pimax Crystal and Vive Pro Eye, check out the [Developers](https://github.com/mbucchia/OpenXR-Eye-Trackers/wiki/Developers) wiki!
 
 ## Donate
 
