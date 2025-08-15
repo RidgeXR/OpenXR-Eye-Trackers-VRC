@@ -37,6 +37,11 @@ namespace openxr_api_layer {
 
     struct VirtualDesktopEyeTracker : IEyeTracker {
         VirtualDesktopEyeTracker() {
+            if (!utilities::IsServiceRunning("VirtualDesktop.Server.exe")) {
+                TraceLoggingWrite(g_traceProvider, "VirtualDesktopEyeTracker_NoService");
+                throw EyeTrackerNotSupportedException();
+            }
+
             *m_faceStateFile.put() = OpenFileMapping(FILE_MAP_READ, false, L"VirtualDesktop.BodyState");
             if (!m_faceStateFile) {
                 TraceLoggingWrite(g_traceProvider, "VirtualDesktopEyeTracker_NotAvailable");
