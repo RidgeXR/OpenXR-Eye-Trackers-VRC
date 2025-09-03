@@ -44,6 +44,7 @@ namespace openxr_api_layer {
         SteamLink,
         OpenXr,
         Psvr2Toolkit,
+        VRChatOSC,
     };
 
     static inline std::string getTrackerType(TrackerType type) {
@@ -72,6 +73,8 @@ namespace openxr_api_layer {
             return "OpenXR";
         case TrackerType::Psvr2Toolkit:
             return "PSVR2 Toolkit";
+        case TrackerType::VRChatOSC:
+            return "Beyond OSC";
         }
         return "<Unknown>";
     }
@@ -96,5 +99,6 @@ namespace openxr_api_layer {
     std::unique_ptr<IEyeTracker> createVirtualDesktopEyeTracker();
     std::unique_ptr<IEyeTracker> createSteamLinkEyeTracker();
     std::unique_ptr<IEyeTracker> createPsvr2ToolkitEyeTracker();
+    std::unique_ptr<IEyeTracker> createVRChatOSCEyeTracker();
 
 } // namespace openxr_api_layer
