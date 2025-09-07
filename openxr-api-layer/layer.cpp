@@ -165,11 +165,7 @@ namespace openxr_api_layer {
                         Log(fmt::format(
                             "Upstream layer/runtime reported supportsEyeGazeInteraction, {} layer will be bypassed\n",
                             LayerName));
-                    } else if (utilities::RegGetDword(
-                                   HKEY_LOCAL_MACHINE, "SOFTWARE\\OpenXR-Eye-Trackers", "BeyondOSCTracker")
-                                   .value_or(false)) {
-                        // Configuration requested Beyond OSC eye tracking.
-                        m_tracker = createVRChatOSCEyeTracker();
+
                     } else if (utilities::RegGetDword(
                                    HKEY_LOCAL_MACHINE, "SOFTWARE\\OpenXR-Eye-Trackers", "SimulateTracker")
                                    .value_or(false)) {
@@ -196,6 +192,8 @@ namespace openxr_api_layer {
                             }
                         } else if (systemName.find("SteamVR/OpenXR : playstation_vr2") != std::string::npos) {
                             m_tracker = createPsvr2ToolkitEyeTracker();
+                        } else if (systemName.find("SteamVR/OpenXR : lighthouse") != std::string::npos) {
+                            m_tracker = createVRChatOSCEyeTracker();
                         } else if (systemName.find("SteamVR/OpenXR") != std::string::npos) {
                             m_tracker = createVarjoEyeTracker();
                         }
