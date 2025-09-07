@@ -193,6 +193,7 @@ namespace openxr_api_layer {
                         } else if (systemName.find("SteamVR/OpenXR : playstation_vr2") != std::string::npos) {
                             m_tracker = createPsvr2ToolkitEyeTracker();
                         } else if (systemName.find("SteamVR/OpenXR : lighthouse") != std::string::npos) {
+                            //For now, we just check for lighthouse, as the Beyond 2E supports VRChat OSC.
                             m_tracker = createVRChatOSCEyeTracker();
                         } else if (systemName.find("SteamVR/OpenXR") != std::string::npos) {
                             m_tracker = createVarjoEyeTracker();
