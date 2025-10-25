@@ -228,7 +228,11 @@ namespace openxr_api_layer {
     };
 
     std::unique_ptr<IEyeTracker> createPsvr2ToolkitEyeTracker() {
-        return std::make_unique<Psvr2ToolkitEyeTracker>();
+        try {
+            return std::make_unique<Psvr2ToolkitEyeTracker>();
+        } catch (...) {
+            return {};
+        }
     }
 
 } // namespace openxr_api_layer
