@@ -75,6 +75,21 @@ namespace openxr_api_layer::utilities {
         return ssStatus.dwCurrentState == SERVICE_RUNNING;
     }
 
+    static bool IsProcessRunning(const std::wstring& name) {
+        HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, NULL);
+        PROCESSENTRY32 pEntry{sizeof(pEntry)};
+        BOOL hRes = Process32First(hSnapShot, &pEntry);
+        while (hRes) {
+            if (!lstrcmpiW(name.c_str(), pEntry.szExeFile)) {
+                return true;
+            }
+            hRes = Process32Next(hSnapShot, &pEntry);
+        }
+        CloseHandle(hSnapShot);
+
+        return false;
+    }
+
     template <typename TMethod>
     void DetourDllAttach(const char* dll, const char* target, TMethod hooked, TMethod& original) {
         if (original) {
