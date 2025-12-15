@@ -192,17 +192,31 @@ namespace openxr_api_layer {
                     retries--;
                 }
 
-                if (retries && response.payload.leftEye.isGazeDirValid && response.payload.rightEye.isGazeDirValid) {
+                if (retries && (response.payload.leftEye.isGazeDirValid || response.payload.rightEye.isGazeDirValid)) {
                     const auto now = std::chrono::high_resolution_clock::now();
 
                     XrVector3f gaze{};
                     // Average the poses from both eyes.
-                    gaze.x = -(response.payload.leftEye.gazeDirNorm.x + response.payload.rightEye.gazeDirNorm.x) / 2.f;
-                    gaze.y = (response.payload.leftEye.gazeDirNorm.y + response.payload.rightEye.gazeDirNorm.y) / 2.f;
-                    gaze.z = -(response.payload.leftEye.gazeDirNorm.z + response.payload.rightEye.gazeDirNorm.z) / 2.f;
+                    if (response.payload.leftEye.isGazeDirValid) {
+                        gaze.x += -response.payload.leftEye.gazeDirNorm.x;
+                        gaze.y += response.payload.leftEye.gazeDirNorm.y;
+                        gaze.z += -response.payload.leftEye.gazeDirNorm.z;
+                    }
+                    if (response.payload.rightEye.isGazeDirValid) {
+                        gaze.x += -response.payload.rightEye.gazeDirNorm.x;
+                        gaze.y += response.payload.rightEye.gazeDirNorm.y;
+                        gaze.z += -response.payload.rightEye.gazeDirNorm.z;
+                    }
+                    if (response.payload.leftEye.isGazeDirValid && response.payload.rightEye.isGazeDirValid) {
+                        gaze.x /= 2.f;
+                        gaze.y /= 2.f;
+                        gaze.z /= 2.f;
+                    }
 
                     TraceLoggingWrite(g_traceProvider,
                                       "Psvr2ToolkitEyeTracker_ProcessMessage",
+                                      TLArg(response.payload.leftEye.isGazeDirValid, "IsLeftGazeValid"),
+                                      TLArg(response.payload.rightEye.isGazeDirValid, "IsRightGazeValid"),
                                       TLArg(xr::ToString(gaze).c_str(), "EyeTrackedGazePoint"));
 
                     if (!(std::isnan(gaze.x) || std::isnan(gaze.y) || std::isnan(gaze.z))) {
@@ -228,7 +242,11 @@ namespace openxr_api_layer {
     };
 
     std::unique_ptr<IEyeTracker> createPsvr2ToolkitEyeTracker() {
-        return std::make_unique<Psvr2ToolkitEyeTracker>();
+        try {
+            return std::make_unique<Psvr2ToolkitEyeTracker>();
+        } catch (...) {
+            return {};
+        }
     }
 
 } // namespace openxr_api_layer
