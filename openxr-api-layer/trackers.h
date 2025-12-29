@@ -74,7 +74,7 @@ namespace openxr_api_layer {
         case TrackerType::Psvr2Toolkit:
             return "PSVR2 Toolkit";
         case TrackerType::VRChatOSC:
-            return "Beyond OSC";
+            return "VRChat OSC";
         }
         return "<Unknown>";
     }
