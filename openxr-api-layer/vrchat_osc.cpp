@@ -37,8 +37,8 @@ namespace openxr_api_layer {
     using namespace log;
 
     struct VRChatOSCEyeTracker : IEyeTracker, osc::OscPacketListener {
-          //VRChat's packets run over port 9000. This can be set to other ports if your software supports, but I'm using port 9000 to avoid confusion.
-        VRChatOSCEyeTracker() : m_socket(IpEndpointName(IpEndpointName::ANY_ADDRESS, 9000), this) {
+          //VRChat's packets run over port 9000. This can be set to other ports if the software supports, we're using port 9020 here.
+        VRChatOSCEyeTracker() : m_socket(IpEndpointName(IpEndpointName::ANY_ADDRESS, 9020), this) {
         }
 
         ~VRChatOSCEyeTracker() override {
